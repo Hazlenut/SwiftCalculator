@@ -17,8 +17,9 @@ class ViewController: UIViewController {
     let text: [[String]] = [["AC", "+/-", "%", "/"],[ "7", "8", "9", "x"],[ "4","5","6","-" ],[ "1","2","3","+"],["0","H",".","="]]
     var label = UILabel();
     var barValue = "";
+    var history = [String]();
     //make H a history popup
-
+    var initialValue = 0
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -38,11 +39,6 @@ class ViewController: UIViewController {
                     array[j][i].layer.borderWidth = 1
                     array[j][i].layer.borderColor = UIColor.black.cgColor
                     array[j][i].titleLabel?.font = UIFont(name: "Verdana-Bold", size: 30)
-                    print(j)
-                    print(" ")
-                    print(i)
-                    print(" ")
-                    print(text[j][i])
                     self.view.addSubview(array[j][i])
                
             }
@@ -75,7 +71,7 @@ class ViewController: UIViewController {
                     }else if j == 3 {
                         array[j][i].addTarget(self, action: #selector(two), for: .touchUpInside)
                     }else if j == 4 {
-                        
+                        array[j][i].addTarget(self, action: #selector(hbutton), for: .touchUpInside)
                     }
                 }else if i == 2 {
                     if j == 1 {
@@ -87,8 +83,10 @@ class ViewController: UIViewController {
                     }else if j == 4 {
                         array[j][i].addTarget(self, action: #selector(decimal), for: .touchUpInside)
                     }else if j == 0 {
-                    
+                        
                     }
+                }else if i == 3 {
+                    
                 }
         }
         }
@@ -114,6 +112,10 @@ class ViewController: UIViewController {
            label.text = barValue;
        }
     @objc func clear() {
+        if(history.count == 10) {
+            history.remove(at: 0);
+        }
+           history.append(barValue)
            barValue = ""
            label.text = barValue;
        }
@@ -153,6 +155,11 @@ class ViewController: UIViewController {
     @objc func decimal() {
         barValue += ".";
         label.text = barValue;
+    }
+    @objc func hbutton() {
+        for i in history {
+            print(i)
+        }
     }
     
 
