@@ -14,9 +14,10 @@ class ViewController: UIViewController {
     let a = UIButton()
 
     var array = [[UIButton]](repeating: [UIButton](repeating: UIButton(), count: 4), count: 5)
-    let text: [[String]] = [["AC", "+/-", "%", "/"],[ "7", "8", "9", "x"],[ "4","5","6","-" ],[ "1","2","3","+"],["0","?",".","="]]
+    let text: [[String]] = [["AC", "+/-", "%", "/"],[ "7", "8", "9", "x"],[ "4","5","6","-" ],[ "1","2","3","+"],["0","H",".","="]]
     var label = UILabel();
     var barValue = "";
+    //make H a history popup
 
     override func viewDidLoad() {
         
@@ -76,6 +77,18 @@ class ViewController: UIViewController {
                     }else if j == 4 {
                         
                     }
+                }else if i == 2 {
+                    if j == 1 {
+                        array[j][i].addTarget(self, action: #selector(nine), for: .touchUpInside)
+                    }else if j == 2 {
+                        array[j][i].addTarget(self, action: #selector(six), for: .touchUpInside)
+                    }else if j == 3 {
+                        array[j][i].addTarget(self, action: #selector(three), for: .touchUpInside)
+                    }else if j == 4 {
+                        array[j][i].addTarget(self, action: #selector(decimal), for: .touchUpInside)
+                    }else if j == 0 {
+                    
+                    }
                 }
         }
         }
@@ -123,6 +136,22 @@ class ViewController: UIViewController {
     }
     @objc func two() {
         barValue += "2";
+        label.text = barValue;
+    }
+    @objc func nine() {
+        barValue += "9";
+        label.text = barValue;
+    }
+    @objc func six() {
+        barValue += "6";
+        label.text = barValue;
+    }
+    @objc func three() {
+        barValue += "3";
+        label.text = barValue;
+    }
+    @objc func decimal() {
+        barValue += ".";
         label.text = barValue;
     }
     
