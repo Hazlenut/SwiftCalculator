@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
     let a = UIButton()
 
     var array = [[UIButton]](repeating: [UIButton](repeating: UIButton(), count: 4), count: 5)
@@ -19,7 +18,8 @@ class ViewController: UIViewController {
     var barValue = "";
     var history = [String]();
     //make H a history popup
-    var initialValue = 0
+    var initialValue = 0.0, secondValue = 0.0;
+    var equald = false;
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -83,10 +83,18 @@ class ViewController: UIViewController {
                     }else if j == 4 {
                         array[j][i].addTarget(self, action: #selector(decimal), for: .touchUpInside)
                     }else if j == 0 {
-                        
+                        array[j][i].addTarget(self, action: #selector(percent), for: .touchUpInside)
                     }
                 }else if i == 3 {
-                    
+                    if j == 3 {
+                        array[j][i].addTarget(self, action: #selector(plus), for: .touchUpInside)
+                    }else
+                    if j == 4 {
+                        array[j][i].addTarget(self, action: #selector(equals), for: .touchUpInside)
+                    }else
+                    if j == 2 {
+                        array[j][i].addTarget(self, action: #selector(minus), for: .touchUpInside)
+                    }
                 }
         }
         }
@@ -95,19 +103,35 @@ class ViewController: UIViewController {
             
     }
     @objc func seven() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "7";
         label.text = barValue;
         
     }
     @objc func four() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "4";
         label.text = barValue;
     }
     @objc func one() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
            barValue += "1";
            label.text = barValue;
        }
     @objc func zero() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
            barValue += "0";
            label.text = barValue;
        }
@@ -129,32 +153,85 @@ class ViewController: UIViewController {
         label.text = barValue;
       }
     @objc func eight() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
        barValue += "8";
         label.text = barValue;
     }
     @objc func five() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "5";
         label.text = barValue;
     }
     @objc func two() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "2";
         label.text = barValue;
     }
     @objc func nine() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "9";
         label.text = barValue;
     }
     @objc func six() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "6";
         label.text = barValue;
     }
     @objc func three() {
+        if equald == true{
+            initialValue = 0;
+            equald = false;
+        }
         barValue += "3";
         label.text = barValue;
     }
     @objc func decimal() {
         barValue += ".";
         label.text = barValue;
+    }
+    @objc func percent() {
+        let bar:Double? = Double(barValue);
+        let val:String? = String(bar!/100);
+        barValue = val!;
+        label.text = barValue;
+    }
+    @objc func plus() {
+        let a:Double? = Double(barValue);
+        initialValue +=  a!;
+        barValue = "";
+    }
+    @objc func minus() {
+        /*
+        if equald == true {
+            let c:Double? = Double(barValue);
+            initialValue = c!;
+            equald = false;
+        }
+ */
+        let a:Double? = Double(barValue);
+        initialValue -= a!;
+        barValue = "";
+    }
+    @objc func equals() {
+        let b:Double? = Double(barValue);
+        let s:String? = String(initialValue + b!);
+        label.text = s;
+        equald = true;
     }
     @objc func hbutton() {
         for i in history {
